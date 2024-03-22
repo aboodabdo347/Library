@@ -1,3 +1,4 @@
+import "./App.css"
 import { Route, Routes, useNavigate } from "react-router-dom"
 import Home from "./pages/Home"
 

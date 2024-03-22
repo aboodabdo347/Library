@@ -1,0 +1,18 @@
+.intro-book {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.intro-rating-bg {
+    background-color: #f7f7f7;
+    width: 38%;
+    padding: 10px;
+}
+
+.intro-rate-num {
+    font-size: 1.5rem;
+}
+
+.intro-rate-solgan {
+    font-size: 12px;
+}
