@@ -1,3 +1,12 @@
+.about-bg {
+    background-color: #f7f7f7;
+}
+
+.about-item {
+    border: solid 3px black;
+    width: 400px;
+}
+
 .intro-book {
     width: 300px;
     margin: 0 auto;

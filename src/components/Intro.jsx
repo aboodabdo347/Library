@@ -13,7 +13,7 @@ const Intro = () => {
                         SHARE TO OTHERS, DISCOVER WITH OTHERS
                     </h1>
                     <div className="mt-5 d-flex">
-                        <button className="btn btn-outline-secondary mr-3">Start Discovering <ArrowOutwardIcon /></button>
+                        <button className="btn btn-outline-secondary">Start Discovering <ArrowOutwardIcon /></button>
                         <button className="btn btn-outline-secondary mx-3">Become an Author</button>
                     </div>
                     </div>
@@ -26,7 +26,7 @@ const Intro = () => {
                                 <div className="d-flex justify-content-between">
                                     <div>
                                         <span className="intro-rate-num mx-2">4.0</span>
-                                        <Rating className="stars-intro" name="read-only" value="4" readOnly size="small" />
+                                        <Rating className="stars-intro" name="read-only" value={4} readOnly size="small" />
                                     </div>
                                     <div>
                                         <button className="btn btn-outline-success btn-sm ">View</button>
