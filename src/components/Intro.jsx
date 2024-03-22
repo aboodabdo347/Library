@@ -13,7 +13,7 @@ const Intro = () => {
                         SHARE TO OTHERS, DISCOVER WITH OTHERS
                     </h1>
                     <div className="mt-5 d-flex">
-                        <button className="btn btn-outline-secondary mr-3">Start Discovering <ArrowOutwardIcon /></button>
+                        <button className="btn btn-outline-secondary">Start Discovering <ArrowOutwardIcon /></button>
                         <button className="btn btn-outline-secondary mx-3">Become an Author</button>
                     </div>
                     </div>
