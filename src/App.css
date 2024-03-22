@@ -5,7 +5,7 @@
 
 .intro-rating-bg {
     background-color: #f7f7f7;
-    width: 38%;
+    width: 100%;
     padding: 10px;
 }
 
@@ -15,4 +15,8 @@
 
 .intro-rate-solgan {
     font-size: 12px;
+}
+
+.intro-img {
+    background-color: #f7f7f7;
 }
