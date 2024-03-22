@@ -26,7 +26,7 @@ const Intro = () => {
                                 <div className="d-flex justify-content-between">
                                     <div>
                                         <span className="intro-rate-num mx-2">4.0</span>
-                                        <Rating className="stars-intro" name="read-only" value="4" readOnly size="small" />
+                                        <Rating className="stars-intro" name="read-only" value={4} readOnly size="small" />
                                     </div>
                                     <div>
                                         <button className="btn btn-outline-success btn-sm ">View</button>
