@@ -5,7 +5,7 @@ import Discover from "../components/Discover"
 const Home = () => {
     return (
         <div>
-            Home Page
+            <Intro />
         </div>
     )
 }
