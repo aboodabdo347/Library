@@ -1,3 +1,17 @@
+.collection-discover-p {
+    font-size: 15px;
+}
+
+.discover-card-title {
+    border-top: 2px solid black;
+    padding: 3px;
+}
+
+.discover-book-card {
+    width: 200px;
+    border: solid 2px black;
+}
+
 .about-bg {
   background-color: #f7f7f7;
 }
