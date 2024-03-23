@@ -1,6 +1,12 @@
 import AddIcon from '@mui/icons-material/Add';
+import { useState } from 'react';
 
 const Profile = () => {
+
+    const newCollection = () => {
+        
+    }
+
     return (
         <div className="container">
                 <div className="nav nav-underline" id="nav-tab" role="tablist">
