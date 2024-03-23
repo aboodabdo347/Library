@@ -7,10 +7,11 @@ const Profile = () => {
     const [collections, setCollections] = useState([])
     const collectionNameRef = useRef(null)
 
-    const newCollection = () => {
+    const newCollection = async () => {
         let title = collectionNameRef.current.value;
-        
+        let createRes = await Client.post("/collections", {title: title})
         console.log(title)
+        console.log(createRes)
         setCollections([title, ...collections])
         collectionNameRef.current.value = "";
     }
