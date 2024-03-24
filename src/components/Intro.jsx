@@ -13,8 +13,8 @@ const Intro = () => {
                         SHARE TO OTHERS, DISCOVER WITH OTHERS
                     </h1>
                     <div className="mt-5 d-flex">
-                        <button className="btn btn-outline-secondary">Start Discovering <ArrowOutwardIcon /></button>
-                        <button className="btn btn-outline-secondary mx-3">Become an Author</button>
+                        <a href="/discoverbooks"><button className="btn btn-outline-secondary">Start Discovering <ArrowOutwardIcon /></button></a>
+                        <a href="/login"><button className="btn btn-outline-secondary mx-3">Become an Author</button></a>
                     </div>
                     </div>
                     <div className="col d-flex flex-column">
