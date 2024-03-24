@@ -1,3 +1,4 @@
+
 import './App.css'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -9,6 +10,7 @@ import Footer from './components/Footer'
 import BookDetails from './pages/BookDetails'
 import CollectionDetails from './pages/CollectionDetails'
 import Login from './pages/Login'
+import Profile from "./pages/Profile"
 const App = () => {
   const [user, setUser] = useState(null)
   useEffect(() => {
@@ -17,6 +19,8 @@ const App = () => {
       checkToken()
     }
   }, [])
+
+
 
   const checkToken = async () => {
     const user = await CheckSession()
@@ -38,6 +42,7 @@ const App = () => {
         <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/collection/:id" element={<CollectionDetails />} />
         <Route path="/Login" element={<Login setUser={setUser} />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
       <footer>
         <Footer />
