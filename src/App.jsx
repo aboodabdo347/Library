@@ -1,16 +1,54 @@
-import "./App.css"
-import { Route, Routes, useNavigate } from "react-router-dom"
-import Home from "./pages/Home"
+
+import './App.css'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import Home from './pages/Home'
+import { CheckSession } from './services/Auth'
+import Nav from './components/Nav'
+import Footer from './components/Footer'
+import BookDetails from './pages/BookDetails'
+import CollectionDetails from './pages/CollectionDetails'
+import Login from './pages/Login'
 import Profile from "./pages/Profile"
-
 const App = () => {
-	return(
-        <Routes>
-            <Route path="/" element={ <Home /> } />
-            <Route path="/profile/:id" element={<Profile />} />
-        </Routes>
-	)
+  const [user, setUser] = useState(null)
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      checkToken()
+    }
+  }, [])
 
+
+
+  const checkToken = async () => {
+    const user = await CheckSession()
+    if (user) {
+      setUser(user)
+    }
+  }
+  const handleLogOut = () => {
+    setUser(null)
+    localStorage.clear()
+  }
+  return (
+    <div>
+      <header>
+        <Nav />
+      </header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/book/:id" element={<BookDetails />} />
+        <Route path="/collection/:id" element={<CollectionDetails />} />
+        <Route path="/Login" element={<Login setUser={setUser} />} />
+        <Route path="/profile/:id" element={<Profile />} />
+      </Routes>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  )
 }
 
 export default App
