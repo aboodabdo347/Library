@@ -14,10 +14,10 @@ import Profile from "./pages/Profile"
 const App = () => {
   const [user, setUser] = useState(null)
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      checkToken()
-    }
+    // const token = localStorage.getItem('token')
+    // if (token) {
+    //   checkToken()
+    // }
   }, [])
 
 
