@@ -60,7 +60,7 @@ const Login = (props) => {
         <div className="cover">
           <div className="front">
             <img
-              src="https://scarletknights.com/images/2023/2/23/Fans3232_web.jpg"
+              src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_500/https://www.instamojo.com/blog/wp-content/uploads/2015/06/ebook4.jpg"
               alt=""
             />
             <div className="text">
@@ -171,7 +171,7 @@ const Login = (props) => {
                         checked={accountType === 'customer'}
                         onChange={(e) => setAccountType(e.target.value)}
                       />
-                      Customer
+                      Reader
                     </label>
                     <label>
                       <input
@@ -181,7 +181,7 @@ const Login = (props) => {
                         checked={accountType === 'enterprise'}
                         onChange={(e) => setAccountType(e.target.value)}
                       />
-                      Enterprise
+                      Author
                     </label>
                   </div>
                   <div className="button input-box">
