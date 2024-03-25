@@ -8,7 +8,7 @@ const DiscoverBooks = () => {
 
     const getBooks = async () => {
         let allBooks = await Client.get("/books")
-        console.log(allBooks.data)
+        // console.log(allBooks.data)
         setBooks(allBooks.data)
     }
 
@@ -18,7 +18,7 @@ const DiscoverBooks = () => {
         let term = searchTerm.current.value
 
         let searchResults = await Client.post(`/books/search`, {term: term});
-        console.log(searchResults.data);
+        // console.log(searchResults.data);
         setBooks(searchResults.data)
     }
 
