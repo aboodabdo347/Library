@@ -11,6 +11,8 @@ import BookDetails from './pages/BookDetails'
 import CollectionDetails from './pages/CollectionDetails'
 import Login from './pages/Login'
 import Profile from "./pages/Profile"
+import DiscoverBooks from './pages/DiscoverBooks'
+
 const App = () => {
   const [user, setUser] = useState(null)
   useEffect(() => {
@@ -39,6 +41,7 @@ const App = () => {
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/discoverbooks" element={<DiscoverBooks />} />
         <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/collection/:id" element={<CollectionDetails />} />
         <Route path="/Login" element={<Login setUser={setUser} />} />

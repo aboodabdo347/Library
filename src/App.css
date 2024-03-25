@@ -1,3 +1,12 @@
+.discover-book-img {
+    width: 150px;
+}
+
+.book-search-default {
+    width: 300px;
+    height: 350px;
+ }
+
 #nav-collection-tab, #nav-profile-tab {
     color: black;
 }
