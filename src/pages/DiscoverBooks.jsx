@@ -38,11 +38,11 @@ const DiscoverBooks = () => {
                     books.map((book) => {
                         return (
                             <div key={book._id}>
-                                <div className="card book-search-default">
+                                <div className="card book-search-default d-flex align-items-center">
                                     <img src={book.image} className="card-img-top discover-book-img" alt={book.title} />
-                                    {/* <div className="card-body">
+                                    <div className="card-body">
                                         <p className="card-text">{book.title}</p>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         )
