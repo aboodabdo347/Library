@@ -6,7 +6,8 @@
     width: 200px;
     height: 350px;
     text-size-adjust: 80%;
- }
+    cursor: pointer;
+}
 
 #nav-collection-tab, #nav-profile-tab {
     color: black;
