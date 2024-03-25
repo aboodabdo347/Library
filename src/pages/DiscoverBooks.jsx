@@ -12,12 +12,7 @@ const DiscoverBooks = () => {
     }
 
     const searchBooks = async (term) => {
-        if(term) {
 
-        } else {
-            let searchRes = await axios.get("https://www.googleapis.com/books/v1/volumes?q=power&langRestrict=en");
-            console.log(searchRes.data.items)
-        }
     }
 
     const handleSubmit = (e) => {
@@ -37,7 +32,25 @@ const DiscoverBooks = () => {
                     <div className="col-2"><button className="btn btn-outline-success ms-3">Search</button></div>
                 </form>
             </div>
-            
+            <div className="d-flex flex-wrap align-items-stretch">
+                {
+                    books.length > 0 ? 
+                    books.map((book) => {
+                        return (
+                            <div key={book._id}>
+                                <div className="card book-search-default">
+                                    <img src={book.image} className="card-img-top discover-book-img" alt={book.title} />
+                                    {/* <div className="card-body">
+                                        <p className="card-text">{book.title}</p>
+                                    </div> */}
+                                </div>
+                            </div>
+                        )
+                    })
+                    :null
+                }
+            </div>
+
         </div>
     )
 }
