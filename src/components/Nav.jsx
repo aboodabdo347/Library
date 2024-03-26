@@ -20,6 +20,7 @@ const Nav = ({ user, handleLogOut }) => {
       </div>
       {user ? (
         <div className="auth-links">
+              <a href="/profile/${user.id}">Profile</a>
               <a href="/" className="login-button"
               onClick={handleLogOut}
               >SignOut</a>
