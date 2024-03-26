@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import Client from "../services/api"
-const DiscoverBooks = () => {
+const DiscoverBooks = (props) => {
   const [search, setSearch] = useState([])
   const [books, setBooks] = useState([])
   const searchTerm = useRef(null)
@@ -56,7 +56,7 @@ const DiscoverBooks = () => {
       <div className="d-flex flex-wrap align-items-stretch">
         {books.length > 0
           ? books.map((book) => {
-              let bookIsbn = "/book/" + book.isbn
+              let bookIsbn = "/book/" + props?.user?.id + "/" + book.isbn
               return (
                 <div key={book.isbn}>
                   <Link
