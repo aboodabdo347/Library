@@ -28,6 +28,7 @@ const DiscoverBooks = () => {
       setBooks(searchResults.data)
     } else {
       //show error message empty search
+      console.log("no value buddy")
     }
     // console.log(searchResults.data);
   }
