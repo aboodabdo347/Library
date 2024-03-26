@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate, Link} from "react-router-dom";
 import Client from "../services/api"
 const DiscoverBooks = () => {
 
     const [search, setSearch] = useState([]);
     const [books, setBooks] = useState([]);
     const searchTerm = useRef(null);
+    const navigate = useNavigate();
 
     const getBooks = async () => {
         let allBooks = await Client.get("/books")
@@ -12,8 +14,14 @@ const DiscoverBooks = () => {
         setBooks(allBooks.data)
     }
 
+    // const viewBook = (isbn) => {
+    //     // console.log(isbn)
+    //     navigate(`/book/${isbn}`);
+    // }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+
         //search google api for the term
         let term = searchTerm.current.value
 
@@ -39,14 +47,18 @@ const DiscoverBooks = () => {
                 {
                     books.length > 0 ? 
                     books.map((book) => {
+                        let bookIsbn = "/book/" +book.isbn;
                         return (
                             <div key={book.isbn}>
-                                <div className="card book-search-default d-flex align-items-center m-2">
-                                    <img src={book.image} className="card-img-top discover-book-img" alt={book.title} />
-                                    <div className="card-body overflow-y-auto">
-                                        <p className="card-text ">{book.title}</p>
+                                <Link className="link-of-book" to={bookIsbn} state={{book: book}}>
+                                    <div className="card book-search-default d-flex align-items-center m-2">
+                                        <img src={book.image} className="card-img-top discover-book-img" alt={book.title} />
+                                        <div className="card-body overflow-y-auto">
+                                            <p className="card-text ">{book.title}</p>
+                                        </div>
+                                        <input type="text" value={book.isbn} disabled hidden />
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         )
                     })
