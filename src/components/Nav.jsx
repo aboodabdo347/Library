@@ -1,4 +1,7 @@
-const Nav = () => {
+import { useState } from "react"
+
+const Nav = ({ user, handleLogOut }) => {
+  console.log(user);
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -15,10 +18,20 @@ const Nav = () => {
         <a href="/subscription">Subscription</a>
         <a href="/faq">FAQ</a>
       </div>
-      <div className="auth-links">
-        <a href="/login" className="login-button">Log In</a>
-        <button className="get-started-btn">Get Started</button>
-      </div>
+      {user ? (
+        <div className="auth-links">
+              <a href="/" className="login-button"
+              onClick={handleLogOut}
+              >SignOut</a>
+        </div>
+      ) : (
+        <div className="auth-links">
+          <a href="/login" className="login-button">
+            Log In
+          </a>
+          <button className="get-started-btn">Get Started</button>
+        </div>
+      )}
     </nav>
   )
 }

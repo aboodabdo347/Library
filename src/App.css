@@ -1,3 +1,26 @@
+.discover-book-img {
+    width: 150px;
+}
+
+.book-details-img {
+    width: 400px;
+}
+
+.book-details-img-div {
+    background-color: #f7f7f7;
+}
+
+.link-of-book {
+    text-decoration: none;
+}
+
+.book-search-default {
+    width: 200px;
+    height: 350px;
+    text-size-adjust: 80%;
+    cursor: pointer;
+}
+
 #nav-collection-tab, #nav-profile-tab {
     color: black;
 }
