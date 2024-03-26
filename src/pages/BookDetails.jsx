@@ -30,7 +30,6 @@ const BookDetails=()=>{
                 </div>
             </div>
         </div>
-
     </div>
   )
 }
