@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const Nav = ({ user, handleLogOut }) => {
+  console.log(user);
   return (
     <nav className="navbar">
       <div className="navbar-brand">
