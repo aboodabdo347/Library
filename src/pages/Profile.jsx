@@ -142,7 +142,7 @@ const Profile = ({ user }) => {
               <div className="col-3">
                 <input
                   disabled
-                  value="User Name"
+                  value={user}
                   id="userName"
                   className="form-control ms-5"
                   type="text"
