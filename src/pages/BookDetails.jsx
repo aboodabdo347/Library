@@ -12,6 +12,10 @@ const BookDetails = () => {
   }
   let published = new Intl.DateTimeFormat("en-GB", options).format(date)
 
+  const addBookInCollection = async () => {
+    
+  }
+
   return (
     <div className="container m-5">
       <div className="row">

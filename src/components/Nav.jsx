@@ -1,7 +1,8 @@
 import { useState } from "react"
 
 const Nav = ({ user, handleLogOut }) => {
-  console.log(user);
+    // console.log(user)
+    let profileLink = `/profile/${user?.id}`
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -20,7 +21,7 @@ const Nav = ({ user, handleLogOut }) => {
       </div>
       {user ? (
         <div className="auth-links">
-              <a href="/profile/${user.id}">Profile</a>
+              <a href={profileLink}>Profile</a>
               <a href="/" className="login-button"
               onClick={handleLogOut}
               >SignOut</a>

@@ -1,21 +1,33 @@
 import AddIcon from "@mui/icons-material/Add"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import Client from "../services/api"
 
 const Profile = ({ user }) => {
   const [collections, setCollections] = useState([])
   const collectionNameRef = useRef(null)
+  const {id} = useParams()
 
   const newCollection = async () => {
     let title = collectionNameRef.current.value
-    let createRes = await Client.post("/collections", { title: title })
-    console.log(title)
-    console.log(createRes)
-    setCollections([title, ...collections])
+    let createRes = await Client.post("/collections", { title: title,
+    user: user.id })
+    console.log(createRes.data)
+    let newArray = [createRes.data, ...collections];
+    setCollections(newArray)
+    // console.log(newArray)
     collectionNameRef.current.value = ""
   }
 
-  const handleCollectionChange = () => {}
+  const getUserCollection = async () => {
+    let collectionRes = await Client.get(`/collections/${id}`);
+    // console.log(collectionRes.data)
+    setCollections(collectionRes.data)
+  }
+
+  useEffect(() => {
+    getUserCollection();
+  }, []);
 
   return (
     <div className="container">
@@ -108,9 +120,14 @@ const Profile = ({ user }) => {
         >
           <div className="row mt-5">
             <div className="col">
-              {collections.length > 0 ? (
+              {
+              collections.length > 0 ? (
                 collections.map((collection) => {
-                  return <h3 key={collection}>{collection}</h3>
+                  return (
+                    <div key={collection._id}>
+                        <h3>{collection.title}</h3>
+                    </div>
+                  )
                 })
               ) : (
                 <h3>No Collections Yet.</h3>
@@ -142,7 +159,7 @@ const Profile = ({ user }) => {
               <div className="col-3">
                 <input
                   disabled
-                  value={user}
+                  value={user?.name}
                   id="userName"
                   className="form-control ms-5"
                   type="text"
