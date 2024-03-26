@@ -31,7 +31,6 @@ const BookDetails=()=>{
                 </div>
             </div>
         </div>
->>>>>>> e0dd50e723140ce67421d9861d300bf5c0fd0d82
     </div>
   )
 }
