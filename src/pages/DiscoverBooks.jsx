@@ -5,7 +5,6 @@ const DiscoverBooks = () => {
   const [search, setSearch] = useState([])
   const [books, setBooks] = useState([])
   const searchTerm = useRef(null)
-  const searchButton = useRef(null)
   const navigate = useNavigate()
 
   const getBooks = async () => {
@@ -24,10 +23,13 @@ const DiscoverBooks = () => {
 
     //search google api for the term
     let term = searchTerm.current.value
-
-    let searchResults = await Client.post(`/books/search`, { term: term })
+    if (term) {
+      let searchResults = await Client.post(`/books/search`, { term: term })
+      setBooks(searchResults.data)
+    } else {
+      //show error message empty search
+    }
     // console.log(searchResults.data);
-    setBooks(searchResults.data)
   }
 
   useEffect(() => {
@@ -46,9 +48,7 @@ const DiscoverBooks = () => {
             <input type="text" ref={searchTerm} className="form-control" />
           </div>
           <div className="col-2">
-            <button ref={searchButton} className="btn btn-outline-success ms-3">
-              Search
-            </button>
+            <button className="btn btn-outline-success ms-3">Search</button>
           </div>
         </form>
       </div>
