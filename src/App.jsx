@@ -13,6 +13,10 @@ import Profile from "./pages/Profile"
 import DiscoverBooks from "./pages/DiscoverBooks"
 import UserContext from "./user-context"
 
+import AddBook from "./pages/AddBook"
+import DiscoverCollections from "./pages/DiscoverCollections"
+
+
 const App = () => {
   const [user, setUser] = useState(null)
   useEffect(() => {
@@ -39,18 +43,20 @@ const App = () => {
           <Nav user={user} handleLogOut={handleLogOut} />
         </header>
         <Routes>
-          <Route path="/" element={<Home />} />
+
+          <Route path="/" element={<Home user={user} />} />
+
           <Route
             path="/discoverbooks"
             element={<DiscoverBooks user={user} />}
           />
           <Route path="/book/:user/:id" element={<BookDetails user={user} />} />
-          <Route
-            path="/collections/:id"
-            element={<CollectionDetails user={user}  />}
-          />
+          <Route path="/allcollections" element={<DiscoverCollections />} />
+          <Route path="/collection/:id" element={<CollectionDetails user={user} />} />
           <Route path="/Login" element={<Login setUser={setUser} />} />
           <Route path="/profile/:id" element={<Profile user={user} />} />
+          <Route path="/addbook" element={<AddBook user={user} />} />
+
         </Routes>
         <footer>
           <Footer />

@@ -167,8 +167,8 @@ const Login = (props) => {
                       <input
                         type="radio"
                         name="accountType"
-                        value="customer"
-                        checked={accountType === 'customer'}
+                        value="reader"
+                        checked={accountType === 'reader'}
                         onChange={(e) => setAccountType(e.target.value)}
                       />
                       Reader
@@ -177,8 +177,8 @@ const Login = (props) => {
                       <input
                         type="radio"
                         name="accountType"
-                        value="enterprise"
-                        checked={accountType === 'enterprise'}
+                        value="author"
+                        checked={accountType === 'author'}
                         onChange={(e) => setAccountType(e.target.value)}
                       />
                       Author

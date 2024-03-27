@@ -122,5 +122,6 @@ const CollectionDetails = ({user }) => {
 
   
   )
+
 }
 export default CollectionDetails
