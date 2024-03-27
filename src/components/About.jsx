@@ -5,7 +5,11 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward"
 import { useNavigate } from "react-router-dom"
 
 const About = () => {
-  const goToAllCollections = () => {}
+  let navigate = useNavigate()
+
+  const goToAllCollections = () => {
+    navigate("/allcollections")
+  }
 
   return (
     <div className="about-bg mt-5 p-5">
@@ -18,7 +22,10 @@ const About = () => {
               similar interests, passions, and expertise.
             </p>
             <div className="mt-5 d-flex">
-              <button className="btn btn-outline-secondary">
+              <button
+                onClick={goToAllCollections}
+                className="btn btn-outline-secondary"
+              >
                 Discover Collections <ArrowOutwardIcon />
               </button>
             </div>
