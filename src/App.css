@@ -210,6 +210,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-right: 50px;
 }
 
 .newsletter input {
@@ -221,9 +222,11 @@
 .newsletter-signup .input-icon {
   position: relative;
 }
-
+.newsletter {
+  margin-right: -300px;
+}
 .input-icon input {
-  padding-left: 30px;
+  padding-left: 100px;
 }
 
 .input-icon .email-icon {
@@ -232,6 +235,10 @@
   top: 50%;
   transform: translateY(-50%);
   color: #ccc;
+}
+
+.newsletter-signup .input-icon input::placeholder {
+  text-align: left;
 }
 .newsletter button {
   padding: 10px 20px;
