@@ -126,6 +126,16 @@ const Profile = ({ user }) => {
                   return (
                     <div key={collection._id}>
                         <h3>{collection.title}</h3>
+                        {
+                            collection.books.map((book) => {
+                                return (
+                                    <h6>
+                                        {book.title}
+                                        {book.image}
+                                    </h6>
+                                )
+                            })
+                        }
                     </div>
                   )
                 })
