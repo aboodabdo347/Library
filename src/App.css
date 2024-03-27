@@ -2,6 +2,10 @@ body {
   overflow-x: hidden;
 }
 
+.profile-form {
+    margin-bottom: 500px;
+}
+
 .collection-all-background {
   background-color: gray;
 }
