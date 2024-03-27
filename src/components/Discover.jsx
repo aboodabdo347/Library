@@ -43,6 +43,7 @@ const Discover = () => {
                         src={book.image}
                         alt=""
                       />
+                      <div className="discover-card-title"></div>
                       <button className="m-1 btn btn-secondary btn-sm">
                         View <ArrowOutwardIcon fontSize="small" />
                       </button>
