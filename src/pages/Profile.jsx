@@ -1,9 +1,10 @@
 import AddIcon from "@mui/icons-material/Add"
 import { useState, useRef, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { Route, Routes, useParams } from "react-router-dom"
 import Client from "../services/api"
 import { grey } from "@mui/material/colors"
-
+import CollectionDetails from "./CollectionDetails"
+import { Link } from "react-router-dom"
 const Profile = ({ user }) => {
   const [collections, setCollections] = useState([])
   const collectionNameRef = useRef(null)
@@ -26,6 +27,7 @@ const Profile = ({ user }) => {
     let collectionRes = await Client.get(`/collections/${id}`)
     // console.log(collectionRes.data)
     setCollections(collectionRes.data)
+    console.log(collections);
   }
 
   useEffect(() => {
@@ -34,6 +36,7 @@ const Profile = ({ user }) => {
 
   return (
     <div className="container">
+      
       <div
         className="modal fade"
         id="exampleModal"
@@ -123,6 +126,15 @@ const Profile = ({ user }) => {
         >
           <div className="row mt-5">
             <div className="col">
+              <button
+                className="btn btn-outline-secondary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <AddIcon /> New Collection
+              </button>
+            </div>
+            <div className="col">
               {collections.length > 0 ? (
                 collections.map((collection) => {
                   return (
@@ -136,36 +148,45 @@ const Profile = ({ user }) => {
 
                     <div
                       key={collection._id}
-                      style={{ overflowX: "auto", whiteSpace: "nowrap"}}
+                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
                     >
-                      <h3>{collection.title}</h3>
+                      <Link
+                        to={`/collections/${collection._id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <h3 style={{ cursor: "pointer" }}>
+                          {collection.title}
+                        </h3>
+                      </Link>
                       <div style={{ display: "flex" }}>
-                        <div className="overflow-x-scroll d-flex my-5" >
-                        {collection.books.map((book) => (
-                          // <div
-                          //   key={book._id}
-                          //   style={{
-                          //     marginRight: "10px",
-                          //     backgroundColor: grey,
-                          //   }}
-                          // >
-                          //   <h6>{book.title}</h6>
-                          //   <img
-                          //     src={book.image}
-                          //     alt="img"
-                          //     style={{ width: "100px", height: "150px" }}
-                          //   />
-                          // </div>
+                        <div className="overflow-x-scroll d-flex my-5">
+                          {collection.books.map((book) => (
+                            // <div
+                            //   key={book._id}
+                            //   style={{
+                            //     marginRight: "10px",
+                            //     backgroundColor: grey,
+                            //   }}
+                            // >
+                            //   <h6>{book.title}</h6>
+                            //   <img
+                            //     src={book.image}
+                            //     alt="img"
+                            //     style={{ width: "100px", height: "150px" }}
+                            //   />
+                            // </div>
                             <div className="d-flex">
                               <div className="card me-3 discover-book-card">
                                 <img src={book.image} alt="img" />
                                 <div className="discover-card-title">
-                                <h6 className="text-start">{book.authors}</h6>
-                                <p className="text-start collection-discover-p">{book.title}</p>
-                            </div>
+                                  <h6 className="text-start">{book.authors}</h6>
+                                  <p className="text-start collection-discover-p">
+                                    {book.title}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                        ))}
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -175,7 +196,7 @@ const Profile = ({ user }) => {
                 <h3>No Collections Yet.</h3>
               )}
             </div>
-            <div className="col">
+            {/* <div className="col">
               <button
                 className="btn btn-outline-secondary"
                 data-bs-toggle="modal"
@@ -183,7 +204,7 @@ const Profile = ({ user }) => {
               >
                 <AddIcon /> New Collection
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div
