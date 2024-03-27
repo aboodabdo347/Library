@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react"
-import Client from "../services/api"
-import { ConstructionOutlined } from "@mui/icons-material"
+import { useState, useEffect } from 'react'
+import Client from '../services/api'
+import { ConstructionOutlined } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 
 const DiscoverCollections = () => {
   const [collections, setCollections] = useState(null)
 
   const getAllCollections = async () => {
-    let getCollRes = await Client.get("/collections")
+    let getCollRes = await Client.get('/collections')
     setCollections(getCollRes.data)
     // console.log(getCollRes.data)
   }
@@ -25,9 +26,12 @@ const DiscoverCollections = () => {
                   <div key={collection._id}>
                     <div className="d-flex justify-content-between">
                       <h4>{collection.title}</h4>
-                      <button className="btn btn-outline-secondary">
+                      <Link
+                        to={`/collection/${collection._id}`}
+                        className="btn btn-outline-secondary"
+                      >
                         View Collection
-                      </button>
+                      </Link>
                     </div>
                     <div className="overflow-x-scroll d-flex my-5 collection-all-background">
                       <div className="d-flex">
