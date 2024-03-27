@@ -126,22 +126,47 @@ const Profile = ({ user }) => {
               {collections.length > 0 ? (
                 collections.map((collection) => {
                   return (
+                    //     <div className="overflow-x-scroll d-flex my-5">
+                    //       <div className="d-flex">
+                    //         <div className="card me-3 discover-book-card">
+                    //         <img src={book.image} alt="img" />
+                    //         </div>
+                    //       </div>
+                    //     </div>
+
                     <div
                       key={collection._id}
-                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                      style={{ overflowX: "auto", whiteSpace: "nowrap"}}
                     >
                       <h3>{collection.title}</h3>
                       <div style={{ display: "flex" }}>
+                        <div className="overflow-x-scroll d-flex my-5" >
                         {collection.books.map((book) => (
-                          <div key={book._id} style={{ marginRight: "10px" , backgroundColor:grey}}>
-                            <h6>{book.title}</h6>
-                            <img
-                              src={book.image}
-                              alt="img"
-                              style={{ width: "100px", height: "150px" }}
-                            />
-                          </div>
+                          // <div
+                          //   key={book._id}
+                          //   style={{
+                          //     marginRight: "10px",
+                          //     backgroundColor: grey,
+                          //   }}
+                          // >
+                          //   <h6>{book.title}</h6>
+                          //   <img
+                          //     src={book.image}
+                          //     alt="img"
+                          //     style={{ width: "100px", height: "150px" }}
+                          //   />
+                          // </div>
+                            <div className="d-flex">
+                              <div className="card me-3 discover-book-card">
+                                <img src={book.image} alt="img" />
+                                <div className="discover-card-title">
+                                <h6 className="text-start">{book.authors}</h6>
+                                <p className="text-start collection-discover-p">{book.title}</p>
+                            </div>
+                              </div>
+                            </div>
                         ))}
+                        </div>
                       </div>
                     </div>
                   )
