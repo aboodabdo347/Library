@@ -1,87 +1,77 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import Client from '../services/api'
+import { useLocation, useParams } from "react-router-dom"
+import Client from "../services/api"
+import { useEffect, useState, useRef } from "react"
 
-const BookDetails = ({ user }) => {
-  const { book_isbn } = useParams()
-  const [book, setBook] = useState(null)
-  const [collections, setCollections] = useState([])
+const BookDetails = (props) => {
+  const location = useLocation()
+  const { book } = location.state
+  const {id, user} = useParams(); // this is the book ISBN number
+  const [collections, setCollections] = useState([]);
+  const selectCollection = useRef();
+  let date = new Date(book.pubYear)
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }
+  let published = new Intl.DateTimeFormat("en-GB", options).format(date)
+
+  const addBookInCollection = async () => {
+    let addRes = await Client.put("/collections/" + id, {collectionId: selectCollection.current.value}); //bookISBN id
+    console.log(addRes.data);
+    // console.log(selectCollection.current.value)
+  }
+
+  const getUserCollection = async () => {
+    let collectionRes = await Client.get("/collections/"+ user)
+    setCollections(collectionRes.data)
+  }
 
   useEffect(() => {
-    const fetchBookDetails = async () => {
-      const bookResponse = await Client.get(`/books/${book_isbn}`)
-      setBook(bookResponse.data)
-      fetchCollections()
-    }
-
-    fetchBookDetails()
-  }, [book_isbn])
-
-  const fetchCollections = async () => {
-    const response = await Client.get('/collections')
-
-      const filteredCollections = response.data.filter(
-        (c) => !c.books.includes(book_isbn)
-      )
-      setCollections(filteredCollections)
-  }
-
-  const handleAddToCollection = async (collectionId) => {
-    await Client.post(`/collections/${collectionId}/books/${book_isbn}`)
-  }
-
-  if (!book) {
-    return <div>Loading...</div>
-  }
-
-  const date = new Date(book.pubYear)
-  const options = { year: 'numeric', month: 'long', day: 'numeric' }
-  const published = new Intl.DateTimeFormat('en-GB', options).format(date)
+        getUserCollection()
+  }, []);
 
   return (
-    book ?
     <div className="container m-5">
       <div className="row">
         <div className="col d-flex justify-content-center book-details-img-div">
           <img
             className="book-details-img"
-            src={book.image.replace('zoom=1', 'zoom=0')}
-            alt={book.title}
+            src={book.image.replace("zoom=1", "zoom=0")}
           />
         </div>
         <div className="col">
           <h2>{book.title}</h2>
           <br />
-          {book.authors.map((author, index) => (
-            <h5 key={index}>{author}</h5> // Assuming author is a string; adjust if it’s an object
+          {book.authors.map((author) => (
+            <h5 key={author}>{author}</h5>
           ))}
           <h6>Published {published}</h6>
           <br />
           <p>{book.description}</p>
-          <div className="d-flex justify-content-end">
-            <select onChange={(e) => handleAddToCollection(e.target.value)}>
-              <option value="">Add to Collection</option>
-              {collections.map((c) => (
-                <option key={c._id} value={c._id}>
-                  {c.title}
-                </option>
-              ))}
-            </select>
+          <div className="d-flex justify-content-evenly mt-5 row">
+          <div className="col">
+                <select ref={selectCollection} className="form-select" name="collectionSel" id="collectionSel">
+                {
+                    collections.map((collection) => {
+                        return (
+                            <option key={collection._id} value={collection._id}>{collection.title}</option>
+                        )
+                    })
+                }
+                </select>
+            </div>
+            <div className="col">
+                <button onClick={addBookInCollection} className="btn btn-outline-secondary">
+                    Add to Collection
+                </button>
+            </div>
+
           </div>
-          {user &&
-            user.books &&
-            user.role === 'author' &&
-            user.books.includes(book_isbn) && (
-              <div>
-                <button className="btn btn-danger">Delete</button>
-                <button className="btn btn-primary">Update</button>
-              </div>
-            )}
         </div>
       </div>
     </div>
-    : null
+   
   )
 }
-
 export default BookDetails

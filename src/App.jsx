@@ -11,10 +11,15 @@ import CollectionDetails from './pages/CollectionDetails'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import DiscoverBooks from './pages/DiscoverBooks'
+<<<<<<< HEAD
 import AddBook from './pages/AddBook'
+=======
+import UserContext from './user-context'
+>>>>>>> a9438b6134b380edf45a162e98eccf05af9c9f27
 
 const App = () => {
   const [user, setUser] = useState(null)
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -33,6 +38,7 @@ const App = () => {
     localStorage.clear()
   }
   return (
+<<<<<<< HEAD
     <div>
       <header>
         <Nav user={user} handleLogOut={handleLogOut} />
@@ -50,6 +56,26 @@ const App = () => {
         <Footer />
       </footer>
     </div>
+=======
+    <UserContext.Provider value={user}>
+        <div>
+        <header>
+            <Nav  user={user} handleLogOut={handleLogOut}/>
+        </header>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/discoverbooks" element={<DiscoverBooks user={user}/>} />
+            <Route path="/book/:user/:id" element={<BookDetails user={user}/>} />
+            <Route path="/collection/:id" element={<CollectionDetails />} />
+            <Route path="/Login" element={<Login setUser={setUser} />} />
+            <Route path="/profile/:id" element={<Profile user={user}/>} />
+        </Routes>
+        <footer>
+            <Footer />
+        </footer>
+        </div>
+    </UserContext.Provider>
+>>>>>>> a9438b6134b380edf45a162e98eccf05af9c9f27
   )
 }
 
