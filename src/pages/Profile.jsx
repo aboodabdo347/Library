@@ -2,32 +2,35 @@ import AddIcon from "@mui/icons-material/Add"
 import { useState, useRef, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import Client from "../services/api"
+import { grey } from "@mui/material/colors"
 
 const Profile = ({ user }) => {
   const [collections, setCollections] = useState([])
   const collectionNameRef = useRef(null)
-  const {id} = useParams()
+  const { id } = useParams()
 
   const newCollection = async () => {
     let title = collectionNameRef.current.value
-    let createRes = await Client.post("/collections", { title: title,
-    user: user.id })
+    let createRes = await Client.post("/collections", {
+      title: title,
+      user: user.id,
+    })
     console.log(createRes.data)
-    let newArray = [createRes.data, ...collections];
+    let newArray = [createRes.data, ...collections]
     setCollections(newArray)
     // console.log(newArray)
     collectionNameRef.current.value = ""
   }
 
   const getUserCollection = async () => {
-    let collectionRes = await Client.get(`/collections/${id}`);
+    let collectionRes = await Client.get(`/collections/${id}`)
     // console.log(collectionRes.data)
     setCollections(collectionRes.data)
   }
 
   useEffect(() => {
-    getUserCollection();
-  }, []);
+    getUserCollection()
+  }, [])
 
   return (
     <div className="container">
@@ -120,22 +123,26 @@ const Profile = ({ user }) => {
         >
           <div className="row mt-5">
             <div className="col">
-              {
-              collections.length > 0 ? (
+              {collections.length > 0 ? (
                 collections.map((collection) => {
                   return (
-                    <div key={collection._id}>
-                        <h3>{collection.title}</h3>
-                        {
-                            collection.books.map((book) => {
-                                return (
-                                    <h6>
-                                        {book.title}
-                                        {book.image}
-                                    </h6>
-                                )
-                            })
-                        }
+                    <div
+                      key={collection._id}
+                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                    >
+                      <h3>{collection.title}</h3>
+                      <div style={{ display: "flex" }}>
+                        {collection.books.map((book) => (
+                          <div key={book._id} style={{ marginRight: "10px" , backgroundColor:grey}}>
+                            <h6>{book.title}</h6>
+                            <img
+                              src={book.image}
+                              alt="img"
+                              style={{ width: "100px", height: "150px" }}
+                            />
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )
                 })
