@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useState } from 'react'
 import Home from './pages/Home'
 import { CheckSession } from './services/Auth'
@@ -47,7 +47,7 @@ const App = () => {
             element={<DiscoverBooks user={user} />}
           />
           <Route path="/book/:user/:id" element={<BookDetails user={user} />} />
-          <Route path="/collection/:id" element={<CollectionDetails />} />
+          <Route path="/collection/:id" element={<CollectionDetails user={user} />} />
           <Route path="/Login" element={<Login setUser={setUser} />} />
           <Route path="/profile/:id" element={<Profile user={user} />} />
           <Route path="/addbook" element={<AddBook user={user} />} />
