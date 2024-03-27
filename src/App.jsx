@@ -1,4 +1,3 @@
-
 import './App.css'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -10,7 +9,7 @@ import Footer from './components/Footer'
 import BookDetails from './pages/BookDetails'
 import CollectionDetails from './pages/CollectionDetails'
 import Login from './pages/Login'
-import Profile from "./pages/Profile"
+import Profile from './pages/Profile'
 import DiscoverBooks from './pages/DiscoverBooks'
 import UserContext from './user-context'
 
@@ -23,8 +22,6 @@ const App = () => {
       checkToken()
     }
   }, [])
-
-
 
   const checkToken = async () => {
     const user = await CheckSession()

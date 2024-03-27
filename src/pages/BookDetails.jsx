@@ -71,6 +71,7 @@ const BookDetails = (props) => {
         </div>
       </div>
     </div>
+   
   )
 }
 export default BookDetails

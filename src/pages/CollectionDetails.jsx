@@ -1,8 +1,4 @@
-const CollectionDetails=()=>{
-  return(
-    <div>
-
-    </div>
-  )
+const CollectionDetails = () => {
+  return <div></div>
 }
 export default CollectionDetails
