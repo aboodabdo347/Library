@@ -1,127 +1,166 @@
-import React, { useState, useEffect } from 'react';
-import axios from "axios"
-import Client from "../services/api"
-import { useParams,Link } from "react-router-dom"
-// import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import Client from '../services/api'
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  Grid,
+  Container,
+  Snackbar,
+  Alert
+} from '@mui/material'
+import { motion } from 'framer-motion'
+import { makeStyles } from '@mui/styles'
 
-const CollectionDetails = ({user }) => {
-  const [collections, setCollections] = useState([])
-  const { id } = useParams()
-  // console.log(id);
-  useEffect(() => {
-    // Fetch collection details from backend when component mounts
-    getUserCollection()
-    // const fetchCollectionDetails = async () => {
-    //   try {
-    //     // Make a GET request to fetch collection details (replace 'YOUR_BACKEND_URL' with the actual URL)
-    //     const response = await Client.get(`/collections/${id}`)
-    //     setCollections(response.data)
-    //     console.log(collections);
-      
-    //   } catch (error) {
-    //     console.error("Error fetching collection details:", error)
-    //   }
-    // }
-
-    // fetchCollectionDetails()
-  }, [])
-
-  const getUserCollection = async () => {
-    let collectionRes = await Client.get(`/collections/${user.id}`)
-    // console.log(collectionRes.data)
-    setCollections(collectionRes.data)
-    console.log("id id:",collectionRes.data);
-    // for(var a in collectionRes.data){
-    //   if(a._id == id){console.log("aaa",a);}
-    //   else console.log("jj",a);
-
-    // }
-    collectionRes.data.forEach((e)=>{
-      if(e._id == id){
-      // setCollections(e.books)
-    console.log(collections);
+const useStyles = makeStyles((theme) => ({
+  card: {
+    transition: 'transform 0.15s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.05)'
     }
-        // else {console.log("jj",e);}
-    })
+  },
+  media: {
+    height: 300
+  },
+  deleteButton: {
+    marginTop: '20px'
+  },
+  cardContent: {
+    backgroundColor: '#f5f5f5',
+    height: '100%'
+  }
+}))
+
+const CollectionDetails = ({ user }) => {
+  const classes = useStyles()
+  const [books, setBooks] = useState([])
+  const [check, setCheck] = useState(null)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const { collectionId } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    fetchCollectionBooks()
+  }, [collectionId, user])
+
+  const fetchCollectionBooks = async () => {
+    const response = await Client.get(`/collections/${collectionId}`)
+    setCheck(response.data[0]?.user)
+    if (response.data.length > 0 && response.data[0].books) {
+      setBooks(response.data[0].books)
+    } else {
+      console.log('No books found in this collection.')
+      setBooks([])
+    }
   }
 
-  const removeCollection = async()=>{
-     await Client.delete(`/collections/${id}`)
-    // const history = useHistory();
-// console.log(`/collections/${id}`);
-// history.push('http://localhost:3000/');
+  const removeBookFromCollection = async (bookId, event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    await Client.delete(`/collections/${collectionId}/books/${bookId}`)
+    setSnackbarMessage('Book removed from collection')
+    setSnackbarOpen(true)
+    fetchCollectionBooks()
   }
-  const handleDelete = () => {
-    // Update UI to reflect that the collection has been deleted
-    setCollections(null)
+
+  const deleteCollection = async () => {
+    await Client.delete(`/collections/${collectionId}`)
+    setSnackbarMessage('Collection deleted successfully')
+    setSnackbarOpen(true)
+    navigate('/allcollections')
+  }
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackbarOpen(false)
   }
 
   return (
-    <div>
-    <button onClick={removeCollection}>remove collection</button>
+    <Container maxWidth="lg">
+      <Grid container spacing={3}>
+        {books.map((book) => {
+          const bookIsbn =
+            user && user.id
+              ? `/book/${user.id}/${book.isbn}`
+              : `/book/user/${book.isbn}`
 
-
-    {collections.length > 0 ? (
-                collections.map((collection) => {
-                  return (
-                    //     <div className="overflow-x-scroll d-flex my-5">
-                    //       <div className="d-flex">
-                    //         <div className="card me-3 discover-book-card">
-                    //         <img src={book.image} alt="img" />
-                    //         </div>
-                    //       </div>
-                    //     </div>
-
-                    <div
-                      key={collection._id}
-                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-                    >
-                     
-                        <h3 >
-                          {collection.title}
-                        </h3>
-                     
-                      <div style={{ display: "flex" }}>
-                        <div className="overflow-x-scroll d-flex my-5">
-                          {collection.books.map((book) => (
-                            // <div
-                            //   key={book._id}
-                            //   style={{
-                            //     marginRight: "10px",
-                            //     backgroundColor: grey,
-                            //   }}
-                            // >
-                            //   <h6>{book.title}</h6>
-                            //   <img
-                            //     src={book.image}
-                            //     alt="img"
-                            //     style={{ width: "100px", height: "150px" }}
-                            //   />
-                            // </div>
-                            <div className="d-flex">
-                              <div className="card me-3 discover-book-card">
-                                <img src={book.image} alt="img" />
-                                <div className="discover-card-title">
-                                  <h6 className="text-start">{book.authors}</h6>
-                                  <p className="text-start collection-discover-p">
-                                    {book.title}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })
-              ) : (
-                <h3>There are no books in this collection.</h3>
-              )}
-            </div>
-
-  
+          return (
+            <Grid item key={book._id} xs={12} sm={6} md={4}>
+              <Link
+                to={bookIsbn}
+                state={{ book }}
+                style={{ textDecoration: 'none' }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.media}
+                      image={book.image || '/default-book-image.png'}
+                      title={book.title || 'No title available'}
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5">
+                        {book.title || 'No title available'}
+                      </Typography>
+                      {check === user?.id && (
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={(e) => removeBookFromCollection(book._id, e)}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Link>
+            </Grid>
+          )
+        })}
+      </Grid>
+      {check === user?.id && (
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.deleteButton}
+          onClick={deleteCollection}
+        >
+          Delete Collection
+        </Button>
+      )}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{
+          maxWidth: 'none',
+          width: '30%',
+          '& .MuiSnackbarContent-root': {
+            fontSize: '1.2rem'
+          }
+        }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </Container>
   )
-
 }
+
 export default CollectionDetails
