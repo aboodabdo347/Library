@@ -1,10 +1,10 @@
-import AddIcon from "@mui/icons-material/Add"
-import { useState, useRef, useEffect } from "react"
-import { Route, Routes, useParams } from "react-router-dom"
-import Client from "../services/api"
-import { grey } from "@mui/material/colors"
-import CollectionDetails from "./CollectionDetails"
-import { Link } from "react-router-dom"
+import AddIcon from '@mui/icons-material/Add'
+import { useState, useRef, useEffect } from 'react'
+import { Route, Routes, useParams } from 'react-router-dom'
+import Client from '../services/api'
+import { grey } from '@mui/material/colors'
+import CollectionDetails from './CollectionDetails'
+import { Link } from 'react-router-dom'
 const Profile = ({ user }) => {
   const [collections, setCollections] = useState([])
   const collectionNameRef = useRef(null)
@@ -12,22 +12,22 @@ const Profile = ({ user }) => {
 
   const newCollection = async () => {
     let title = collectionNameRef.current.value
-    let createRes = await Client.post("/collections", {
+    let createRes = await Client.post('/collections', {
       title: title,
-      user: user.id,
+      user: user.id
     })
     console.log(createRes.data)
     let newArray = [createRes.data, ...collections]
     setCollections(newArray)
     // console.log(newArray)
-    collectionNameRef.current.value = ""
+    collectionNameRef.current.value = ''
   }
 
   const getUserCollection = async () => {
     let collectionRes = await Client.get(`/collections/${id}`)
     // console.log(collectionRes.data)
     setCollections(collectionRes.data)
-    console.log(collections);
+    console.log(collections)
   }
 
   useEffect(() => {
@@ -36,7 +36,6 @@ const Profile = ({ user }) => {
 
   return (
     <div className="container">
-      
       <div
         className="modal fade"
         id="exampleModal"
@@ -148,17 +147,17 @@ const Profile = ({ user }) => {
 
                     <div
                       key={collection._id}
-                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                      style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}
                     >
                       <Link
-                        to={`/collections/${collection._id}`}
-                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={`/collection/${collection._id}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        <h3 style={{ cursor: "pointer" }}>
+                        <h3 style={{ cursor: 'pointer' }}>
                           {collection.title}
                         </h3>
                       </Link>
-                      <div style={{ display: "flex" }}>
+                      <div style={{ display: 'flex' }}>
                         <div className="overflow-x-scroll d-flex my-5">
                           {collection.books.map((book) => (
                             // <div
