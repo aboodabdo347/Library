@@ -56,7 +56,12 @@ const DiscoverBooks = (props) => {
       <div className="d-flex flex-wrap align-items-stretch">
         {books.length > 0
           ? books.map((book) => {
-              let bookIsbn = "/book/" + props?.user?.id + "/" + book.isbn
+              let bookIsbn
+              if (props?.user?.id) {
+                bookIsbn = "/book/" + props?.user?.id + "/" + book.isbn
+              } else {
+                bookIsbn = "/book/user/" + book.isbn
+              }
               return (
                 <div key={book.isbn}>
                   <Link
