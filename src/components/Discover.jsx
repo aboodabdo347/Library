@@ -2,8 +2,9 @@ import defaultBook from "../images/defaultBook.jpg"
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward"
 import Client from "../services/api"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
-const Discover = () => {
+const Discover = (props) => {
   const [latest, setLatest] = useState(null)
 
   const getLatestBooks = async () => {
@@ -33,6 +34,12 @@ const Discover = () => {
           <div className="d-flex">
             {latest
               ? latest.map((book) => {
+                  let bookIsbn
+                  if (props?.user?.id) {
+                    bookIsbn = "/book/" + props?.user?.id + "/" + book.isbn
+                  } else {
+                    bookIsbn = "/book/user/" + book.isbn
+                  }
                   return (
                     <div
                       key={book._id}
@@ -44,9 +51,11 @@ const Discover = () => {
                         alt=""
                       />
                       <div className="discover-card-title"></div>
-                      <button className="m-1 btn btn-secondary btn-sm">
-                        View <ArrowOutwardIcon fontSize="small" />
-                      </button>
+                      <Link to={bookIsbn} state={{ book: book }}>
+                        <button className="m-1 btn btn-secondary btn-sm">
+                          View <ArrowOutwardIcon fontSize="small" />
+                        </button>
+                      </Link>
                     </div>
                   )
                 })
