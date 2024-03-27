@@ -12,17 +12,13 @@ const Nav = ({ user, handleLogOut }) => {
         </a>
       </div>
       {user.role == 'author' || user ? (
-        <div>
-          <div className="nav-links">
-            <a href="/addbook">Add book</a>
-            <a href={profileLink}>Your Collections</a>
-          </div>
+        
           <div className="auth-links">
             <a href={profileLink}>Profile</a>
+            <a href="/addbook" className="login-button">Add book</a>
             <a href="/" className="login-button" onClick={handleLogOut}>
               SignOut
             </a>
-          </div>
         </div>
       ) : (
         <div className="auth-links">
@@ -44,7 +40,7 @@ const Nav = ({ user, handleLogOut }) => {
         />
       </a>
     </div>
-    <div className="auth-links">
+    <div className="auth-links-notloggedin">
       <a href="/login" className="login-button">
         Log In
       </a>
