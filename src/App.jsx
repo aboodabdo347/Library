@@ -1,17 +1,18 @@
-import "./App.css"
-import { Route, Routes, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
-import { useState } from "react"
-import Home from "./pages/Home"
-import { CheckSession } from "./services/Auth"
-import Nav from "./components/Nav"
-import Footer from "./components/Footer"
-import BookDetails from "./pages/BookDetails"
-import CollectionDetails from "./pages/CollectionDetails"
-import Login from "./pages/Login"
-import Profile from "./pages/Profile"
-import DiscoverBooks from "./pages/DiscoverBooks"
-import UserContext from "./user-context"
+import './App.css'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import Home from './pages/Home'
+import { CheckSession } from './services/Auth'
+import Nav from './components/Nav'
+import Footer from './components/Footer'
+import BookDetails from './pages/BookDetails'
+import CollectionDetails from './pages/CollectionDetails'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import DiscoverBooks from './pages/DiscoverBooks'
+import UserContext from './user-context'
+import AddBook from './pages/AddBook'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/collection/:id" element={<CollectionDetails />} />
           <Route path="/Login" element={<Login setUser={setUser} />} />
           <Route path="/profile/:id" element={<Profile user={user} />} />
+          <Route path="/addbook" element={<AddBook user={user} />} />
         </Routes>
         <footer>
           <Footer />

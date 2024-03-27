@@ -178,6 +178,7 @@ const AddBook = ({ user }) => {
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         <Alert
           onClose={handleSnackbarClose}
