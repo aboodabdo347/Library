@@ -1,9 +1,13 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
+import Client from "../services/api"
+import { useEffect, useState, useRef } from "react"
 
-const BookDetails = () => {
+const BookDetails = (props) => {
   const location = useLocation()
   const { book } = location.state
-
+  const {id, user} = useParams(); // this is the book ISBN number
+  const [collections, setCollections] = useState([]);
+  const selectCollection = useRef();
   let date = new Date(book.pubYear)
   let options = {
     year: "numeric",
@@ -11,6 +15,21 @@ const BookDetails = () => {
     day: "numeric",
   }
   let published = new Intl.DateTimeFormat("en-GB", options).format(date)
+
+  const addBookInCollection = async () => {
+    let addRes = await Client.put("/collections/" + id, {collectionId: selectCollection.current.value}); //bookISBN id
+    console.log(addRes.data);
+    // console.log(selectCollection.current.value)
+  }
+
+  const getUserCollection = async () => {
+    let collectionRes = await Client.get("/collections/"+ user)
+    setCollections(collectionRes.data)
+  }
+
+  useEffect(() => {
+        getUserCollection()
+  }, []);
 
   return (
     <div className="container m-5">
@@ -30,10 +49,24 @@ const BookDetails = () => {
           <h6>Published {published}</h6>
           <br />
           <p>{book.description}</p>
-          <div className="d-flex justify-content-end">
-            <button className="btn btn-outline-secondary">
-              Add to Collection
-            </button>
+          <div className="d-flex justify-content-evenly mt-5 row">
+          <div className="col">
+                <select ref={selectCollection} className="form-select" name="collectionSel" id="collectionSel">
+                {
+                    collections.map((collection) => {
+                        return (
+                            <option key={collection._id} value={collection._id}>{collection.title}</option>
+                        )
+                    })
+                }
+                </select>
+            </div>
+            <div className="col">
+                <button onClick={addBookInCollection} className="btn btn-outline-secondary">
+                    Add to Collection
+                </button>
+            </div>
+
           </div>
         </div>
       </div>
