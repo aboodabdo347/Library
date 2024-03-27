@@ -18,7 +18,7 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
     if (token) {
       checkToken()
     }
@@ -41,7 +41,7 @@ const App = () => {
           <Nav user={user} handleLogOut={handleLogOut} />
         </header>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home user={user} />} />
           <Route
             path="/discoverbooks"
             element={<DiscoverBooks user={user} />}
