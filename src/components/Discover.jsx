@@ -38,15 +38,11 @@ const Discover = () => {
                       key={book._id}
                       className="card me-3 discover-book-card"
                     >
-                      <img src={book.image} alt="" />
-                      <div className="discover-card-title">
-                        <h6 className="text-start">
-                          {book.authors.map((author) => author)}
-                        </h6>
-                        <p className="text-start collection-discover-p">
-                          Collection Title
-                        </p>
-                      </div>
+                      <img
+                        className="image-on-discover-home"
+                        src={book.image}
+                        alt=""
+                      />
                       <button className="m-1 btn btn-secondary btn-sm">
                         View <ArrowOutwardIcon fontSize="small" />
                       </button>
