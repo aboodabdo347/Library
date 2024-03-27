@@ -1,88 +1,128 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Client from '../services/api'
-import { useParams } from 'react-router-dom'
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Button,
-  Select,
-  MenuItem,
-  Grid,
-  Container
-} from '@mui/material'
+import React, { useState, useEffect } from 'react';
+import axios from "axios"
+import Client from "../services/api"
+import { useParams,Link } from "react-router-dom"
+// import { useHistory } from 'react-router-dom';
 
-const CollectionDetails = ({user}) => {
-  const [books, setBooks] = useState([])
-  const  collectionId  = '6603d9337ecc6995130188d6' // id for collection
-
+const CollectionDetails = ({user }) => {
+  const [collections, setCollections] = useState([])
+  const { id } = useParams()
+  // console.log(id);
   useEffect(() => {
-    fetchCollectionBooks()
-  }, [collectionId])
+    // Fetch collection details from backend when component mounts
+    getUserCollection()
+    // const fetchCollectionDetails = async () => {
+    //   try {
+    //     // Make a GET request to fetch collection details (replace 'YOUR_BACKEND_URL' with the actual URL)
+    //     const response = await Client.get(`/collections/${id}`)
+    //     setCollections(response.data)
+    //     console.log(collections);
+      
+    //   } catch (error) {
+    //     console.error("Error fetching collection details:", error)
+    //   }
+    // }
 
-  const fetchCollectionBooks = async () => {
-    try {
-      const collectionResponse = await Client.get(
-        `/collections/${collectionId}`
-      )
-      console.log(collectionResponse.data)
-      const bookIds = collectionResponse.data[0].books
-      const bookResponses = await Promise.all(
-        bookIds.map((bookId) => Client.get(`/books/${bookId}`))
-      )
-      const bookDetails = bookResponses.map((response) => response.data)
-      setBooks(bookDetails)
-    } catch (error) {
-      console.log(error)
+    // fetchCollectionDetails()
+  }, [])
+
+  const getUserCollection = async () => {
+    let collectionRes = await Client.get(`/collections/${user.id}`)
+    // console.log(collectionRes.data)
+    setCollections(collectionRes.data)
+    console.log("id id:",collectionRes.data);
+    // for(var a in collectionRes.data){
+    //   if(a._id == id){console.log("aaa",a);}
+    //   else console.log("jj",a);
+
+    // }
+    collectionRes.data.forEach((e)=>{
+      if(e._id == id){
+      // setCollections(e.books)
+    console.log(collections);
     }
+        // else {console.log("jj",e);}
+    })
   }
 
-  const removeBookFromCollection = async (bookId) => {
-    try {
-      await Client.delete(`/collections/${collectionId}/books/${bookId}`)
-      fetchCollectionBooks()
-    } catch (error) {
-      console.log(error)
-    }
+  const removeCollection = async()=>{
+     await Client.delete(`/collections/${id}`)
+    // const history = useHistory();
+// console.log(`/collections/${id}`);
+// history.push('http://localhost:3000/');
+  }
+  const handleDelete = () => {
+    // Update UI to reflect that the collection has been deleted
+    setCollections(null)
   }
 
   return (
-    <Container maxWidth="lg">
-      <Grid container spacing={3}>
-        {books.map((book) => (
-          <Grid item key={book._id} xs={12} sm={6} md={4}>
-            <Link
-              to={`/book/${book.isbn}`}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <Card>
-                <CardMedia
-                  component="img"
-                  height="300"
-                  image={book.image || '/default-book-image.png'}
-                  alt={book.title || 'No title available'}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {book.title || 'No title available'}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => removeBookFromCollection(book._id)}
-                  >
-                    Remove
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <div>
+    <button onClick={removeCollection}>remove collection</button>
+
+
+    {collections.length > 0 ? (
+                collections.map((collection) => {
+                  return (
+                    //     <div className="overflow-x-scroll d-flex my-5">
+                    //       <div className="d-flex">
+                    //         <div className="card me-3 discover-book-card">
+                    //         <img src={book.image} alt="img" />
+                    //         </div>
+                    //       </div>
+                    //     </div>
+
+                    <div
+                      key={collection._id}
+                      style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+                    >
+                     
+                        <h3 >
+                          {collection.title}
+                        </h3>
+                     
+                      <div style={{ display: "flex" }}>
+                        <div className="overflow-x-scroll d-flex my-5">
+                          {collection.books.map((book) => (
+                            // <div
+                            //   key={book._id}
+                            //   style={{
+                            //     marginRight: "10px",
+                            //     backgroundColor: grey,
+                            //   }}
+                            // >
+                            //   <h6>{book.title}</h6>
+                            //   <img
+                            //     src={book.image}
+                            //     alt="img"
+                            //     style={{ width: "100px", height: "150px" }}
+                            //   />
+                            // </div>
+                            <div className="d-flex">
+                              <div className="card me-3 discover-book-card">
+                                <img src={book.image} alt="img" />
+                                <div className="discover-card-title">
+                                  <h6 className="text-start">{book.authors}</h6>
+                                  <p className="text-start collection-discover-p">
+                                    {book.title}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })
+              ) : (
+                <h3>There are no books in this collection.</h3>
+              )}
+            </div>
+
+  
   )
+
 }
 
 export default CollectionDetails
