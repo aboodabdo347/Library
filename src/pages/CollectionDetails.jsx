@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     height: 300
   },
   deleteButton: {
-    marginTop: '20px'
+    marginTop: '20px',
+
   },
   cardContent: {
     backgroundColor: '#f5f5f5',
@@ -71,7 +72,7 @@ const CollectionDetails = ({ user }) => {
     await Client.delete(`/collections/${collectionId}`)
     setSnackbarMessage('Collection deleted successfully')
     setSnackbarOpen(true)
-    navigate('/allcollections')
+    navigate('/profile/'+user.id)
   }
 
   const handleCloseSnackbar = (event, reason) => {
@@ -114,7 +115,7 @@ const CollectionDetails = ({ user }) => {
                       {check === user?.id && (
                         <Button
                           variant="contained"
-                          color="secondary"
+                          color="error"
                           onClick={(e) => removeBookFromCollection(book._id, e)}
                         >
                           Remove

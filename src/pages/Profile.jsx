@@ -213,7 +213,7 @@ const Profile = ({ user }) => {
           aria-labelledby="nav-profile-tab"
           tabIndex="0"
         >
-          <form className="mt-5" action="">
+          <form className="mt-5 profile-form" action="">
             <div className="row mt-3">
               <div className="col-1">
                 <label htmlFor="userName">Name</label>
