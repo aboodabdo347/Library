@@ -1,6 +1,7 @@
 import { useLocation, useParams } from "react-router-dom"
 import Client from "../services/api"
-import { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
+import Snackbar from '@mui/material/Snackbar';
 
 const BookDetails = (props) => {
   const location = useLocation()
@@ -20,7 +21,7 @@ const BookDetails = (props) => {
     let addRes = await Client.put("/collections/" + id, {
       collectionId: selectCollection.current.value,
     }) //bookISBN id
-    console.log(addRes.data)
+    // console.log(addRes.data)
     // console.log(selectCollection.current.value)
   }
 
