@@ -114,7 +114,7 @@ const CollectionDetails = ({ user }) => {
                       </Typography>
                       {check === user?.id && (
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           color="error"
                           onClick={(e) => removeBookFromCollection(book._id, e)}
                         >
@@ -132,7 +132,7 @@ const CollectionDetails = ({ user }) => {
       {check === user?.id && (
         <Button
           variant="contained"
-          color="primary"
+          color="error"
           className={classes.deleteButton}
           onClick={deleteCollection}
         >
